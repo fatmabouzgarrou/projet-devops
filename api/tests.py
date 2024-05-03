@@ -32,3 +32,10 @@ class AIModelAPITestCase(APITestCase):
         self.model_instance.model_file.save("model.h5", self.model_file, save=True)
 
 
+class AIModelValidationTestCase(TestCase):
+    def test_name_max_length(self):
+        max_length = AIModel._meta.get_field('name').max_length
+        ai_model = AIModel.objects.create(name='A' * (max_length + 1), description='Test Description')
+        self.assertRaises(ValidationError, ai_model.full_clean)
+
+    # Add more field validation tests as needed...
