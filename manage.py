@@ -3,7 +3,7 @@
 import os
 import sys
 
-
+#touta
 def main():
     """Run administrative tasks."""
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'visual_vision_back.settings')
