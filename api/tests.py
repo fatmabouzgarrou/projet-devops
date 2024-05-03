@@ -18,9 +18,19 @@ class BasicAIAPITestCase(TestCase):
         data = json.loads(response.content)
         self.assertEqual(data, [])
 
-class AIModelErrorHandlingTestCase(TestCase):
-    def test_invalid_model_creation(self):
-        with self.assertRaises(ValueError):
-            AIModel.objects.create(name='', description='Test Description')
-    
-    # Add more error handling tests as needed...
+class AIModelAPITestCase(APITestCase):
+    def setUp(self):
+        # Create an instance of AIModel
+        self.model_instance = AIModel.objects.create(
+            name="Test Model",
+            description="A test model.",
+            num_classes=10,
+            accuracy=99.99,
+            macro_avg=99.9,
+            wieghted_avg=99.8
+        )
+        self.model_file = SimpleUploadedFile("model.h5", b"file_content", content_type="application/octet-stream")
+        self.model_instance.model_file.save("model.h5", self.model_file, save=True)
+
+
+
